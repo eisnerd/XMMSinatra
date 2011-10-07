@@ -58,6 +58,10 @@
                                 };
 
                                 function updatePlaylist() {
+                                    $("#playlist .active").removeClass("active")
+                                    $("#item"+$("#id").html()).addClass("active")
+                                }
+                                function createPlaylist() {
                                         $("#playlist").html("");
                                         lastAlbum = "";
 
@@ -71,12 +75,13 @@
                                                             $("#playlist").append("<div class=\"albumartwrap\"><img class=\"albumart\" src=\"/art/" + item.id + "\" /></div>");
                                                             first = false
                                                         }
-                                                        $("#playlist").append("<div class=\"item"+((item.id == $("#id").html())?" active":"")+"\"><span class=\"pid\">" + (n++) + "</span><span class=\"id\">" + item.id + "</span><span class=\"artist\">" + item.artist + "</span><span class=\"title\">" + item.title + "</span></div>");
+                                                        $("#playlist").append("<div class=\"item"+((item.id == $("#id").html())?" active":"")+"\" id=\"item"+item.id+"\"><span class=\"pid\">" + (n++) + "</span><span class=\"id\">" + item.id + "</span><span class=\"artist\">" + item.artist + "</span><span class=\"title\">" + item.title + "</span></div>");
                                                     });
                                                 });
                                         });
                                 };
 
+                                createPlaylist();
                                 updateInfo();
                                 setInterval(updateInfo, 10000);
 
@@ -100,7 +105,7 @@
                                         if (event.which == 13) {
                                                 $.get("/search/" + $("#search").val(), function (data) {
                                                         if (data == "OK")
-                                                                updatePlaylist();
+                                                                createPlaylist();
                                                         else
                                                                 $("#search").addClass("invalid");
                                                 });
