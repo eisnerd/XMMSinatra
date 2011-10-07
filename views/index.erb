@@ -62,18 +62,17 @@
                                         lastAlbum = "";
 
                                         $.getJSON("/playlist", function (data) {
-                                                $.each(data.items, function (i, item) {
-                                                        if (lastAlbum != item.album) {
-                                                                lastAlbum = item.album;
-                                                                $("#playlist").append("<div class=\"albumitem\">" + item.album + "</div>");
-                                                                $("#playlist").append("<div class=\"albumartwrap\"><img class=\"albumart\" src=\"/art/" + item.id + "\" /></div>");
+                                                n = 1
+                                                $.each(data.albums, function (i, al) {
+                                                    $("#playlist").append("<div class=\"albumitem\"><div class=\"title\">" + al.album + "</div><div class=\"artist\">" + al.artist + "</div>");
+                                                    first = true
+                                                    $.each(al.items, function (j, item) {
+                                                        if (first) {
+                                                            $("#playlist").append("<div class=\"albumartwrap\"><img class=\"albumart\" src=\"/art/" + item.id + "\" /></div>");
+                                                            first = false
                                                         }
-
-                                                        if (item.id == $("#id").html()) {
-                                                                $("#playlist").append("<div class=\"item active\"><span class=\"pid\">" + (i + 1) + "</span><span class=\"id\">" + item.id + "</span><span class=\"artist\">" + item.artist + "</span><span class=\"title\">" + item.title + "</span></div>");
-                                                        } else {
-                                                                $("#playlist").append("<div class=\"item\"><span class=\"pid\">" + (i + 1) + "</span><span class=\"id\">" + item.id + "</span><span class=\"artist\">" + item.artist + "</span><span class=\"title\">" + item.title + "</span></div>");
-                                                        }
+                                                        $("#playlist").append("<div class=\"item"+((item.id == $("#id").html())?" active":"")+"\"><span class=\"pid\">" + (n++) + "</span><span class=\"id\">" + item.id + "</span><span class=\"artist\">" + item.artist + "</span><span class=\"title\">" + item.title + "</span></div>");
+                                                    });
                                                 });
                                         });
                                 };

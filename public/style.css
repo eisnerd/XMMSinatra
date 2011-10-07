@@ -104,6 +104,10 @@ html, body {
         clear: both;
 }
 
+.albumitem  .artist {
+        color: #444;
+}
+
 .albumart {
         height: 160px;
         width: 160px;
