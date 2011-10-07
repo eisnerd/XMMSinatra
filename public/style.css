@@ -18,6 +18,11 @@ html, body {
         text-decoration: none;
 }
 
+#info, #menu {
+		z-index: 2;
+		position: relative;
+}
+
 #menu ul {
         display: inline-block;
 }
